@@ -1,0 +1,86 @@
+.game-board {
+	text-align: center;
+	margin-top: 10%;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.cell-row {
+	height: 20px;
+}
+
+.cell {
+	display: inline-block;
+	border: outset 1.5px black;
+	height: 20px;
+	width: 20px;
+	background-color: #ABBFF4;
+	box-shadow: inset -15px -15px 7px -13px rgba(0,0,0,0.47);
+	font-size: 17px;
+	overflow: hidden;
+	font-family: arial;
+}
+
+.cell:hover {
+	background-color: #F4B1AB;
+}
+
+.cell:active {
+	box-shadow: none;
+}
+
+.revealed {
+	box-shadow: none;
+	background-color: #D5D5D5;
+}
+
+.revealed.m1 {
+	color: #0809DA;
+}
+
+.revealed.m2 {
+	color: #50964D;
+}
+
+.revealed.m3 {
+	color: #A80206;
+}
+
+.revealed.m4 {
+	color: #0F096B;
+}
+
+.revealed.m5 {
+	color: #84232F;
+}
+
+.revealed.m6 {
+	color: #00797D;
+}
+
+.revealed.m7 {
+	color: #840084;
+}
+
+.revealed.m8 {
+	color: #767676;
+}
+
+.bomb {
+	color: red;
+}
+
+.bomb.triggered {
+	color: black;
+	background-color: #FF6969;
+}
+
+.overlay {
+	width: 100%;
+	background: transparent;
+	position: absolute;
+}

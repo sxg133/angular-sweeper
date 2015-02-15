@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Minesweeper</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+		<script src="scripts/minesweeper.js"></script>
+		<script src="scripts/cell-factory.js"></script>
+		<script src="scripts/game-controller.js"></script>
+		<link href="styles/style.css" rel="stylesheet" />
+	</head>
+	<body ng-app="minesweeper" ng-controller="GameController as game">
+		<div id="game-board" class="game-board">
+			<div id="overlay" class="overlay" ng-show="game.isGameOver()"></div>
+			<div class="cell-row" ng-repeat="cellRow in game.Cells">
+				<div class="cell" 
+					ng-repeat="cell in cellRow" 
+					ng-click="game.cellClicked($event, cell);"
+					ms-right-click="game.cellRightClicked($event, cell);"
+					ng-mousedown="game.cellMouseDown($event, cell);"
+					ng-mouseup="game.cellMouseUp($event, cell)">
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
