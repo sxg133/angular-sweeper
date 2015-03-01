@@ -7,19 +7,21 @@
 		<script src="scripts/minesweeper.js"></script>
 		<script src="scripts/cell-factory.js"></script>
 		<script src="scripts/game-controller.js"></script>
+		<script src="scripts/ms-cell-directive.js"></script>
 		<link href="styles/style.css" rel="stylesheet" />
 	</head>
 	<body ng-app="minesweeper" ng-controller="GameController as game">
 		<div id="game-board" class="game-board">
 			<div id="overlay" class="overlay" ng-show="game.isGameOver()"></div>
 			<div class="cell-row" ng-repeat="cellRow in game.Cells">
-				<div class="cell" 
-					ng-repeat="cell in cellRow" 
+				<ms-cell class="cell" ng-repeat="cell in cellRow" 
+					type="cell.getType()" 
+					state="cell.getState()"
 					ng-click="game.cellClicked($event, cell);"
 					ms-right-click="game.cellRightClicked($event, cell);"
 					ng-mousedown="game.cellMouseDown($event, cell);"
-					ng-mouseup="game.cellMouseUp($event, cell)">
-				</div>
+					ng-mouseup="game.cellMouseUp($event, cell)"
+					/>
 			</div>
 		</div>
 	</body>

@@ -178,13 +178,9 @@
 					return;
 				case CellFactory.CellState.FLAGGED:
 					cell.unflag();
-					var cellDiv = getCellDiv(cell.getPosition());
-					angular.element(cellDiv).html('');
 					break;
 				default:	// hidden
 					cell.flag();
-					var cellDiv = getCellDiv(cell.getPosition());
-					angular.element(cellDiv).html('F');
 					break;
 			}
 		}
