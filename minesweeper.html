@@ -14,9 +14,8 @@
 		<div id="game-board" class="game-board">
 			<div id="overlay" class="overlay" ng-show="game.isGameOver()"></div>
 			<div class="cell-row" ng-repeat="cellRow in game.Cells">
-				<ms-cell class="cell" ng-repeat="cell in cellRow" 
-					type="cell.getType()" 
-					state="cell.getState()"
+				<ms-cell class="cell" ng-repeat="cell in cellRow"
+					cell="cell"
 					ng-click="game.cellClicked($event, cell);"
 					ms-right-click="game.cellRightClicked($event, cell);"
 					ng-mousedown="game.cellMouseDown($event, cell);"

@@ -3,7 +3,10 @@
 	function msCell(CellFactory) {
 
 		function link(scope, element, attrs) {
-			scope.$watch('state()', function(newValue, oldValue) {
+
+			var cell = scope.cell;
+
+			scope.$watch('cell.getState()', function(newValue, oldValue) {
 				switch (newValue) {
 					case CellFactory.CellState.REVEALED:
 						break;
@@ -20,8 +23,7 @@
 		return {
 			restrict: 'E',
 			scope: {
-				state: '&',
-				type: '&'
+				cell: '='
 			},
 			link: link
 		};
