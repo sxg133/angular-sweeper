@@ -18,6 +18,7 @@
 			var type = CellType.BLANK;
 			var position = [x, y];
 			var mineCount;
+			var _isTriggered = false;
 
 			function setType(newType) {
 				type = newType;
@@ -55,6 +56,15 @@
 				return mineCount;
 			}
 
+			function triggerMine() {
+				reveal();
+				_isTriggered = true;
+			}
+
+			function isTriggered() {
+				return _isTriggered;
+			}
+
 			return {
 				setType : setType,
 				getType : getType,
@@ -64,7 +74,9 @@
 				flag : flag,
 				unflag : unflag,
 				setMineCount : setMineCount,
-				getMineCount : getMineCount
+				getMineCount : getMineCount,
+				triggerMine : triggerMine,
+				isTriggered : isTriggered
 			};
 		}
 

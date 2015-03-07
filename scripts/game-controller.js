@@ -78,18 +78,6 @@
 			return adjacentCells;
 		}
 
-		function setCellDivs() {	// to avoid needing a repeat finished directive we use lazy loading
-			if (cellDivs.length !== 0) {
-				return;
-			}
-
-			$cellRows = $('#game-board').find('.cell-row');
-			$cellRows.each(function() {
-				$rowDivs = $(this).find('.cell');
-				cellDivs.push($rowDivs);
-			});
-		}
-
 		function countMines(cells) {
 			var mineCount = 0;
 			for (var i = 0, len = cells.length; i < len; i++) {
@@ -112,51 +100,32 @@
 
 		}
 
-		function getCellDiv(position) {
-			setCellDivs();
-			return cellDivs[position[0]][position[1]];
-		}
-
 		function revealAllMines() {
 			for (var i = 0; i < numRows; i++) {
 				for (var j = 0; j < numColumns; j++) {
 					var cell = cells[i][j];
 					if (cell.getType() === CellFactory.CellType.MINE && cell.getState() === CellFactory.CellState.HIDDEN) {
-						revealMine(cell);
+						cell.reveal();
 					}
 				}
 			}
 		}
 
-		function revealMine(cell, isTriggered) {
-			var cellDiv = getCellDiv(cell.getPosition());
-			var $cellDiv = $(cellDiv).addClass('revealed');
-			$cellDiv.html('X');
-			$cellDiv.addClass('bomb');
-			if (isTriggered) {
-				$cellDiv.addClass('triggered');
-			}
-		}
-
 		function revealCell(cell) {
-			cell.reveal();
 
 			if (cell.getType() === CellFactory.CellType.MINE) {
-				revealMine(cell, true);
+				cell.triggerMine();
 				revealAllMines();
 				endGame();
 				return;
+			} else {
+				cell.reveal();
 			}
 
 			var adjacentCells = getAdjacentCells(cell.getPosition());
 			var mineCount = countMines(adjacentCells);
-			
-			var cellDiv = getCellDiv(cell.getPosition());
-			var $cellDiv = $(cellDiv).addClass('revealed');
 
 			if (mineCount > 0) {
-				$cellDiv.html(mineCount);
-				$cellDiv.addClass('m' + mineCount.toString());
 				cell.setMineCount(mineCount);
 			} else {
 				revealBlankAdjacentCells(cell);
