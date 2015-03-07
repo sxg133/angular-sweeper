@@ -12,7 +12,7 @@
 	</head>
 	<body ng-app="minesweeper" ng-controller="GameController as game">
 		<div id="game-board" class="game-board">
-			<div id="overlay" class="overlay" ng-show="game.isGameOver()"></div>
+			<div id="overlay" class="overlay" ng-show="game.isGameOver()" ms-right-click="$event.preventDefault();"></div>
 			<div class="cell-row" ng-repeat="cellRow in game.Cells">
 				<ms-cell class="cell" ng-repeat="cell in cellRow"
 					cell="cell"
