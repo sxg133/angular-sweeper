@@ -1,6 +1,13 @@
-.game-board {
+.content-wrapper {
 	text-align: center;
 	margin-top: 10%;
+}
+
+#game-controls {
+	margin: 20px 0;
+}
+
+.game-board {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -23,6 +30,7 @@
 	font-size: 17px;
 	overflow: hidden;
 	font-family: arial;
+	cursor: default;
 }
 
 .cell:hover {

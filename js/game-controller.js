@@ -1,13 +1,14 @@
 (function() {
 
 	function GameController($scope, CellFactory) {
-		
-		var numRows = 16;
-		var numColumns = 30;
-		var numMines = 99;
 
-		var cells = [];
-		var cellDivs = [];
+		var self = this;
+		
+		self.numRows = 16;
+		self.numColumns = 30;
+		self.numMines = 99;
+
+		self.cells = [];
 
 		var leftButtonDown = false;
 		var rightButtonDown = false;
@@ -26,32 +27,32 @@
 
 		function setupGame() {
 			isGameOver = false;
+			self.cells = [];
 			var cellsRef = [];	// for quickly setting random mines
-			for (var i = 0; i < numRows; i++) {
+			for (var i = 0; i < self.numRows; i++) {
 				var row = [];
-				for (var j = 0; j < numColumns; j++) {
+				for (var j = 0; j < self.numColumns; j++) {
 					var cell = new CellFactory.Cell(i, j);
 					row.push(cell);
 					cellsRef.push(cell);
 				}
-				cells.push(row);
+				self.cells.push(row);
 			}
 
-			var numCells = numRows * numColumns;
-			for (var i = 0; i < numMines; i++) {
+			var numCells = self.numRows * self.numColumns;
+			for (var i = 0; i < self.numMines; i++) {
 				var cellIndex = getRandomNumber(0, numCells-1);
 				cellsRef[cellIndex].setType(CellFactory.CellType.MINE);
 				cellsRef.splice(cellIndex, 1);
 				numCells--;
 			}
-			cellsRef = null;
 		}
 
 		function cellPositionExists(position) {
 			return position[0] >= 0
-				&& position[0] < numRows
+				&& position[0] < self.numRows
 				&& position[1] >= 0
-				&& position[1] < numColumns;
+				&& position[1] < self.numColumns;
 		}
 
 		function getAdjacentCells(position) {
@@ -71,7 +72,7 @@
 				if ( cellPositionExists(adjacentPositions[i]) ) {
 					var x = adjacentPositions[i][0];
 					var y = adjacentPositions[i][1];
-					adjacentCells.push( cells[x][y] );
+					adjacentCells.push( self.cells[x][y] );
 				}
 			}
 
@@ -101,9 +102,9 @@
 		}
 
 		function revealAllMines() {
-			for (var i = 0; i < numRows; i++) {
-				for (var j = 0; j < numColumns; j++) {
-					var cell = cells[i][j];
+			for (var i = 0; i < self.numRows; i++) {
+				for (var j = 0; j < self.numColumns; j++) {
+					var cell = self.cells[i][j];
 					if (cell.getType() === CellFactory.CellType.MINE && cell.getState() === CellFactory.CellState.HIDDEN) {
 						cell.reveal();
 					}
@@ -203,14 +204,22 @@
 
 		setupGame();
 
-		return {
+		/*return {
 			Cells : cells,
 			cellClicked : cellClicked,
 			cellRightClicked : cellRightClicked,
 			cellMouseDown : cellMouseDown,
 			cellMouseUp : cellMouseUp,
-			isGameOver : function() { return isGameOver; }
-		}
+			setupGame : setupGame,
+			isGameOver : function() { return isGameOver; },
+		}*/
+
+		self.cellClicked = cellClicked;
+		self.cellRightClicked = cellRightClicked;
+		self.cellMouseDown = cellMouseDown;
+		self.cellMouseUp = cellMouseUp;
+		self.setupGame = setupGame;
+		self.isGameOver = function() { return isGameOver; };
 	}
 
 	angular.module('minesweeper')
