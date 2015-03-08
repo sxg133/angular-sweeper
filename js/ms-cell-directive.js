@@ -2,47 +2,41 @@
 
 	function msCell(CellFactory) {
 
+		function link(scope, element, attrs) {
 
-		function compile(element, attr, linker) {
+			var cell = scope.cell;
 
-			return function(scope, element, attrs) {
+			scope.$watch('cell.getState()', function(newValue, oldValue) {
+				switch (newValue) {
 
-				var cell = scope.cell;
+					case CellFactory.CellState.REVEALED:
+						element.addClass('revealed');
 
-				scope.$watch(cell.getState, function(newValue, oldValue) {
-					switch (newValue) {
-
-						case CellFactory.CellState.REVEALED:
-							element.addClass('revealed');
-
-							if (cell.getType() === CellFactory.CellType.BLANK) {
-								var mineCount = cell.getMineCount();
-								if (mineCount > 0) {
-									element.html(mineCount);
-									element.addClass('m' + mineCount);
-								}
-							} else if (cell.getType() === CellFactory.CellType.MINE) {
-								element.html('X');
-								element.addClass('bomb');
-								if (cell.isTriggered()) {
-									element.addClass('triggered');
-								}
+						if (cell.getType() === CellFactory.CellType.BLANK) {
+							var mineCount = cell.getMineCount();
+							if (mineCount > 0) {
+								element.html(mineCount);
+								element.addClass('m' + mineCount);
 							}
+						} else if (cell.getType() === CellFactory.CellType.MINE) {
+							element.html('X');
+							element.addClass('bomb');
+							if (cell.isTriggered()) {
+								element.addClass('triggered');
+							}
+						}
 
-							break;
+						break;
 
-						case CellFactory.CellState.FLAGGED:
-							element.html('F');
-							break;
+					case CellFactory.CellState.FLAGGED:
+						element.html('F');
+						break;
 
-						default:
-							element.html('');
-							break;
-					}
-				});
-
-			}
-
+					default:
+						element.html('');
+						break;
+				}
+			});
 		}
 
 		return {
@@ -50,7 +44,7 @@
 			scope: {
 				cell: '='
 			},
-			compile: compile
+			link: link
 		};
 	}
 
