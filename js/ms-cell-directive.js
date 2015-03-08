@@ -6,7 +6,7 @@
 
 			var cell = scope.cell;
 
-			function stateWatch(newValue, oldValue) {
+			scope.$watch('cell.getState()', function(newValue, oldValue) {
 				switch (newValue) {
 
 					case CellFactory.CellState.REVEALED:
@@ -33,15 +33,9 @@
 						break;
 
 					default:
-						element.html('');
-						element.attr('class', 'cell');
 						break;
 				}
-			}
-
-			scope.$watch('cell.getState()', stateWatch);
-
-			stateWatch(cell.getState());
+			});
 		}
 
 		return {
