@@ -204,16 +204,6 @@
 
 		setupGame();
 
-		/*return {
-			Cells : cells,
-			cellClicked : cellClicked,
-			cellRightClicked : cellRightClicked,
-			cellMouseDown : cellMouseDown,
-			cellMouseUp : cellMouseUp,
-			setupGame : setupGame,
-			isGameOver : function() { return isGameOver; },
-		}*/
-
 		self.cellClicked = cellClicked;
 		self.cellRightClicked = cellRightClicked;
 		self.cellMouseDown = cellMouseDown;
